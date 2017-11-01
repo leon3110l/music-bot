@@ -79,22 +79,10 @@ handler.set('yt', (message, parts) => {
     ytsearch({ q }).then(res => {
       const { items } = res
       let msg = 'found\r\n\r\n'
-      items.some((x, i) => {
-        if (
-          x.snippet.channelTitle.toLowerCase().search(
-            new RegExp(
-              `vevo|${q
-                .toLowerCase()
-                .split(' ')
-                .join('|')}`,
-              'g',
-            ),
-          ) != -1
-        ) {
-          msg += `https://www.youtube.com/watch?v=${x.id.videoId}\r\n`
-          return true
-        }
-      })
+      for (let x of items.filter(musicFilter(q))) {
+        msg += `https://www.youtube.com/watch?v=${x.id.videoId}\r\n`
+        break
+      }
       message.reply(msg)
     })
   }
@@ -124,3 +112,14 @@ function ytsearch(opt) {
     )
   })
 }
+
+const musicFilter = q => x =>
+  x.snippet.channelTitle.toLowerCase().search(
+    new RegExp(
+      `vevo|${q
+        .toLowerCase()
+        .split(' ')
+        .join('|')}`,
+      'g',
+    ),
+  ) != -1
