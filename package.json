@@ -1,0 +1,22 @@
+{
+  "name": "music-bot",
+  "version": "1.0.0",
+  "description": "music bot for discord",
+  "main": "src/index.js",
+  "repository": "https://github.com/leon-4A6C/music-bot",
+  "author": "leon in 't Veld <leon3110l@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "start": "babel-node src/index.js",
+    "run:build": "node lib/index.js",
+    "run:src": "yarn start"
+  }
+}
