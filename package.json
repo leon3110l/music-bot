@@ -7,7 +7,9 @@
   "author": "leon in 't Veld <leon3110l@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.2.1",
+    "googleapis": "^22.2.0",
+    "spotify-web-api-node": "^2.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -19,6 +21,6 @@
     "start": "babel-node src/index.js",
     "run:build": "node lib/index.js",
     "run:src": "yarn start",
-    "watch": "nodemon -w src/* --exec yarn start"
+    "watch": "nodemon -w src --exec \"yarn start\""
   }
 }
