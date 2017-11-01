@@ -1,7 +1,14 @@
 import Discord from 'discord.js'
 import SpotifyWebApi from 'spotify-web-api-node'
+const yt = require('googleapis').youtube('v3')
 
-import { token, prefix, spotify_secret, spotify_id } from './conf.json'
+import {
+  token,
+  prefix,
+  spotify_secret,
+  spotify_id,
+  youtube_token,
+} from './conf.json'
 import MessageHandler from './messageHandler'
 
 const bot = new Discord.Client()
@@ -52,8 +59,68 @@ handler.set('search', (message, parts) => {
   }
 })
 
+handler.set('yt:multiple', (message, parts) => {
+  if (parts[1]) {
+    ytsearch({ q: parts.slice(1).join(' ') }).then(res => {
+      const { items } = res
+      let msg = 'found\r\n\r\n'
+      items.forEach((x, i) => {
+        msg += `${i + 1}. https://www.youtube.com/watch?v=${x.id.videoId}\r\n`
+      })
+      msg += ''
+      message.reply(msg)
+    })
+  }
+})
+
+handler.set('yt', (message, parts) => {
+  if (parts[1]) {
+    const q = parts.slice(1).join(' ')
+    ytsearch({ q }).then(res => {
+      const { items } = res
+      let msg = 'found\r\n\r\n'
+      items.some((x, i) => {
+        if (
+          x.snippet.channelTitle.toLowerCase().search(
+            new RegExp(
+              `vevo|${q
+                .toLowerCase()
+                .split(' ')
+                .join('|')}`,
+              'g',
+            ),
+          ) != -1
+        ) {
+          msg += `https://www.youtube.com/watch?v=${x.id.videoId}\r\n`
+          return true
+        }
+      })
+      message.reply(msg)
+    })
+  }
+})
+
 bot.on('message', message => {
   handler.handle(message)
 })
 
 bot.login(token)
+
+function ytsearch(opt) {
+  return new Promise((resolve, reject) => {
+    yt.search.list(
+      {
+        order: 'viewCount',
+        part: 'snippet',
+        auth: youtube_token,
+        maxResults: 10,
+        type: 'video',
+        ...opt,
+      },
+      (err, result) => {
+        if (err) reject(err)
+        resolve(result)
+      },
+    )
+  })
+}
