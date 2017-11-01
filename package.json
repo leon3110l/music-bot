@@ -11,12 +11,14 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
+    "nodemon": "^1.12.1"
   },
   "scripts": {
     "build": "babel src -d lib",
     "start": "babel-node src/index.js",
     "run:build": "node lib/index.js",
-    "run:src": "yarn start"
+    "run:src": "yarn start",
+    "watch": "nodemon -w src/* --exec yarn start"
   }
 }
