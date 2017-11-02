@@ -1,0 +1,9 @@
+{
+  "invite": "generate invite link to put bot in different server",
+  "search": "search for music on spotify",
+  "yt": "search for music on youtube",
+  "yt:multiple": "search for music on youtube and get all results",
+  "albums | album": "get album from spotify and get youtube link from it",
+  "playlist | playlists":
+    "get playlist from spotify and get youtube links from it"
+}
