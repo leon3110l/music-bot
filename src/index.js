@@ -191,7 +191,6 @@ function ytsearch(opt) {
   return new Promise((resolve, reject) => {
     yt.search.list(
       {
-        order: 'viewCount',
         part: 'snippet',
         auth: youtube_token,
         maxResults: 10,
@@ -206,13 +205,15 @@ function ytsearch(opt) {
   })
 }
 
-const musicFilter = q => x =>
-  x.snippet.channelTitle.toLowerCase().search(
-    new RegExp(
-      `vevo|official|audio|lyric|${q
-        .toLowerCase()
-        .split(' ')
-        .join('|')}`,
-      'g',
-    ),
-  ) != -1
+const musicFilter = q => x => {
+  const {snippet} = x
+  const regex = new RegExp(
+    `vevo|official|audio|lyric|${q
+      .toLowerCase()
+      .split(' ')
+      .join('|')}`,
+    'g',
+  )
+  return snippet.channelTitle.toLowerCase().search( regex ) != -1
+         || snippet.title.toLowerCase().search(regex) != -1
+}
