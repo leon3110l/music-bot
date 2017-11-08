@@ -30,6 +30,7 @@ spotifyApi.clientCredentialsGrant().then(
 
     // Save the access token so that it's used in future calls
     spotifyApi.setAccessToken(data.body['access_token'])
+    spotifyApi.setRefreshToken(data.body['refresh_token'])
   },
   err => {
     console.log('Something went wrong when retrieving an access token', err)
