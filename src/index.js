@@ -3,8 +3,6 @@ import Discord from 'discord.js'
 import { token, prefix, yt_url } from './conf'
 
 import MessageHandler from './utils/messageHandler'
-import musicFilter from './utils/musicFilter'
-import ytsearch from './utils/youtube'
 
 import Help from './commands/help'
 
@@ -19,35 +17,6 @@ bot.on('ready', () => {
 })
 
 handler.set(Help)
-
-// handler.set('yt:multiple', (message, parts) => {
-//   if (parts[1]) {
-//     ytsearch({ q: parts.slice(1).join(' ') }).then(res => {
-//       const { items } = res
-//       let msg = 'found\r\n\r\n'
-//       items.forEach((x, i) => {
-//         msg += `${i + 1}. ${yt_url}${x.id.videoId}\r\n`
-//       })
-//       msg += ''
-//       message.reply(msg)
-//     })
-//   }
-// })
-
-// handler.set('yt', (message, parts) => {
-//   if (!parts[1]) return
-
-//   const q = parts.slice(1).join(' ')
-//   ytsearch({ q }).then(res => {
-//     const { items } = res
-//     let msg = 'found\r\n\r\n'
-//     for (let x of items.filter(musicFilter(q))) {
-//       msg += `${yt_url}${x.id.videoId}\r\n`
-//       break
-//     }
-//     message.reply(msg)
-//   })
-// })
 
 // const album = (message, parts) => {
 //   if (!parts[0]) return

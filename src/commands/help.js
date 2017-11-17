@@ -13,9 +13,9 @@ export default class Help extends Command {
     let msg = 'help: \r\n\r\n'
     Object.keys(commands).forEach(key => {
       const { info } = commands[key]
-      msg += `${prefix}${info.triggers.join(
+      msg += `${info.name}:\r\n\t\t\`\`${prefix}${info.triggers.join(
         ' | ',
-      )}: ${info.description}\r\n\r\n`
+      )}\`\`\r\n\t\t${info.description}\r\n\r\n`
     })
     message.author.send(msg)
   }
