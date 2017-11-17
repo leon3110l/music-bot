@@ -1,13 +1,11 @@
 import SpotifyWebApi from 'spotify-web-api-node'
 
-import SpotifyParser from './spotifyParser'
 import { spotify_secret, spotify_id } from '../conf'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: spotify_id,
   clientSecret: spotify_secret,
 })
-const parser = new SpotifyParser()
 
 // Retrieve an access token. (doesn't work btw)
 // TODO: fix this

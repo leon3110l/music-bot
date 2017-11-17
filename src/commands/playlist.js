@@ -3,8 +3,11 @@ import spotifyApi from '../utils/spotify'
 import ytsearch from '../utils/youtube'
 import musicFilter from '../utils/musicFilter'
 import { yt_url } from '../conf'
+import SpotifyParser from '../utils/spotifyParser'
 
-export default class Search extends Command {
+const parser = new SpotifyParser()
+
+export default class Playlist extends Command {
   static info = {
     name: 'playlist yt search',
     triggers: ['playlists', 'playlist'],
