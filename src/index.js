@@ -1,10 +1,8 @@
 import Discord from 'discord.js'
-import SpotifyWebApi from 'spotify-web-api-node'
 
-import { token, prefix, spotify_secret, spotify_id, yt_url } from './conf'
+import { token, prefix, yt_url } from './conf'
 
 import MessageHandler from './utils/messageHandler'
-import SpotifyParser from './utils/spotifyParser'
 import musicFilter from './utils/musicFilter'
 import ytsearch from './utils/youtube'
 
@@ -12,39 +10,6 @@ import Help from './commands/help'
 
 const bot = new Discord.Client()
 const handler = new MessageHandler(bot, prefix)
-var spotifyApi = new SpotifyWebApi({
-  clientId: spotify_id,
-  clientSecret: spotify_secret,
-})
-const parser = new SpotifyParser()
-
-// Retrieve an access token.
-spotifyApi.clientCredentialsGrant().then(
-  data => {
-    console.log('The access token expires in ' + data.body['expires_in'])
-    console.log('The access token is ' + data.body['access_token'])
-
-    // Save the access token so that it's used in future calls
-    spotifyApi.setAccessToken(data.body['access_token'])
-    spotifyApi.setRefreshToken(data.body['refresh_token'])
-    setInterval(() => {
-      spotifyApi.refreshAccessToken().then(
-        data => {
-          console.log('The access token has been refreshed!')
-
-          // Save the access token so that it's used in future calls
-          spotifyApi.setAccessToken(data.body['access_token'])
-        },
-        err => {
-          console.log('Could not refresh access token', err)
-        },
-      )
-    }, 3550000)
-  },
-  err => {
-    console.log('Something went wrong when retrieving an access token', err)
-  },
-)
 
 bot.on('ready', () => {
   bot.generateInvite(['SEND_MESSAGES', 'MENTION_EVERYONE']).then(link => {
@@ -54,36 +19,6 @@ bot.on('ready', () => {
 })
 
 handler.set(Help)
-
-// handler.set('help', message => {
-//   let msg = 'help: \r\n\r\n'
-//   console.log(help)
-//   for (let key in help) {
-//     msg += `${prefix}${key}: ${help[key]}\r\n\r\n`
-//   }
-//   message.author.send(msg)
-// })
-
-// handler.set('invite', message => {
-//   bot
-//     .generateInvite(['SEND_MESSAGES', 'MENTION_EVERYONE'])
-//     .then(link => message.reply(`here is the invite link: ${link}`))
-// })
-
-// handler.set('search', (message, parts) => {
-//   if (parts[1]) {
-//     spotifyApi.searchTracks(parts.slice(1).join(' ')).then(res => {
-//       const { items } = res.body.tracks
-//       let msg = 'found```'
-//       items.forEach((x, i) => {
-//         const { album } = x
-//         msg += `${i}. ${album.name} - ${album.artists[0].name}\r\n`
-//       })
-//       msg += '```'
-//       message.reply(msg)
-//     })
-//   }
-// })
 
 // handler.set('yt:multiple', (message, parts) => {
 //   if (parts[1]) {
