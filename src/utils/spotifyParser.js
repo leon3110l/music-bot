@@ -9,7 +9,7 @@ export default class SpotifyParser {
     x = x
       .split('spotify:')
       .slice(1)
-      .join('')
+      .join('spotify:')
       .split(':')
 
     x.forEach((y, i) => {
