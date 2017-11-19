@@ -12,17 +12,35 @@ export default class MusicManager {
       })
     }
     this.broadcast = client.createVoiceBroadcast()
+    this.dispatcher = this.connection.playBroadcast(this.broadcast)
+    this.dispatcher.on('end', () => {
+      this.playNext() // play the next song in the queue
+    })
+    this.currentlyPlaying = 0
   }
 
   add(song) {
     this.queue.push(song)
   }
 
-  play() {
-    const stream = ytdl(this.queue[0].url, {
+  resume() {
+    if (this.dispatcher.paused) {
+      this.dispatcher.resume()
+    }
+  }
+
+  pause() {
+    if (!this.dispatcher.paused) {
+      this.dispatcher.pause()
+    }
+  }
+
+  playNext() {
+    const song = this.queue[this.currentlyPlaying++]
+    if (!song) return
+    const stream = ytdl(song.url, {
       filter: 'audioonly',
     })
     this.broadcast.playStream(stream)
-    const dispatcher = this.connection.playBroadcast(this.broadcast)
   }
 }

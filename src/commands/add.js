@@ -16,6 +16,6 @@ export default class Add extends Command {
     )
 
     mgr.add(new Song('https://www.youtube.com/watch?v=xy6BZCyCV0g'))
-    mgr.play()
+    mgr.playNext()
   }
 }
