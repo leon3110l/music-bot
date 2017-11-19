@@ -46,6 +46,7 @@ export default class MusicManager {
   init() {
     this.dispatcher = this.connection.playBroadcast(this.broadcast)
     this.dispatcher.stream.on('end', () => {
+      console.log('stream end call')
       this.playNext() // play the next song in the queue
     })
   }
@@ -71,15 +72,24 @@ export default class MusicManager {
   }
 
   next() {
+    console.log('next')
     return this.currentlyPlaying++
   }
 
   play() {
-    if (!this.currentSong) return
+    if (!this.currentSong) {
+      console.log('no more songs', this.currentlyPlaying)
+      return
+    }
     const stream = ytdl(this.currentSong.url, {
       filter: 'audioonly',
     })
+    console.log('added new stream')
     this.broadcast.playStream(stream)
+  }
+
+  skip() {
+    this.dispatcher.stream.end()
   }
 
   playNext() {

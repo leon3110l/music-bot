@@ -1,14 +1,14 @@
 import Command from '../structures/command'
 
-export default class Play extends Command {
+export default class Pause extends Command {
   static info = {
-    name: 'play',
-    triggers: ['play', 'p'],
-    description: 'plays the songs of the queue',
+    name: 'pause',
+    triggers: ['pause', 'p'],
+    description: 'pause the playing of music',
   }
 
   run(message, parts, addons) {
     const musicManager = addons.serverManager.get(message.guild.id).musicManager
-    musicManager.play()
+    musicManager.pause()
   }
 }

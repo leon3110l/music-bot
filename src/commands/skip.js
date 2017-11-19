@@ -1,14 +1,14 @@
 import Command from '../structures/command'
 
-export default class Play extends Command {
+export default class Skip extends Command {
   static info = {
-    name: 'play',
-    triggers: ['play', 'p'],
-    description: 'plays the songs of the queue',
+    name: 'skip',
+    triggers: ['skip', 's'],
+    description: 'skips to the next song',
   }
 
   run(message, parts, addons) {
     const musicManager = addons.serverManager.get(message.guild.id).musicManager
-    musicManager.play()
+    musicManager.skip()
   }
 }

@@ -1,14 +1,14 @@
 import Command from '../structures/command'
 
-export default class Play extends Command {
+export default class Prev extends Command {
   static info = {
-    name: 'play',
-    triggers: ['play', 'p'],
-    description: 'plays the songs of the queue',
+    name: 'previous',
+    triggers: ['prev'],
+    description: 'goes back a song',
   }
 
   run(message, parts, addons) {
     const musicManager = addons.serverManager.get(message.guild.id).musicManager
-    musicManager.play()
+    musicManager.playPrev()
   }
 }
