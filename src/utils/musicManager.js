@@ -45,7 +45,7 @@ export default class MusicManager {
 
   init() {
     this.dispatcher = this.connection.playBroadcast(this.broadcast)
-    this.dispatcher.on('end', () => {
+    this.dispatcher.stream.on('end', () => {
       this.playNext() // play the next song in the queue
     })
   }

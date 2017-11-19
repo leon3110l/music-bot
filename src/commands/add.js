@@ -1,6 +1,7 @@
 import Command from '../structures/command'
-import MusicManager from '../utils/musicManager'
 import Song from '../structures/song'
+
+const yturi = 'youtube.com/watch?v='
 
 export default class Add extends Command {
   static info = {
@@ -10,6 +11,14 @@ export default class Add extends Command {
   }
 
   run(message, parts, addons) {
-    console.log(addons.serverManager, message.guild.id)
+    const musicManager = addons.serverManager.get(message.guild.id).musicManager
+
+    parts.slice(1).forEach(x => {
+      if (x.search(yturi)) this.ytUrl(musicManager)(x)
+    })
+  }
+
+  ytUrl = mmgr => url => {
+    mmgr.add(new Song(url))
   }
 }

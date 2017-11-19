@@ -1,8 +1,10 @@
+import { Collection } from 'discord.js'
+
 export default class ServerManager {
   constructor(client, addons = {}) {
     if (!client) throw new Error('no client supplied')
     this.client = client
-    this.servers = new Map()
+    this.servers = new Collection()
     this.addons = addons
 
     this.client.on('ready', () => {
@@ -27,6 +29,6 @@ export default class ServerManager {
   }
 
   get(snowflake) {
-    this.servers.get(snowflake)
+    return this.servers.get(snowflake)
   }
 }
