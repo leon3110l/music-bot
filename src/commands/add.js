@@ -9,13 +9,7 @@ export default class Add extends Command {
     description: 'adds a song to the queue',
   }
 
-  run(message, parts) {
-    const mgr = new MusicManager(
-      this.client,
-      message.guild.channels.filter(x => x.type === 'voice').first(),
-    )
-
-    mgr.add(new Song('https://www.youtube.com/watch?v=xy6BZCyCV0g'))
-    mgr.play()
+  run(message, parts, addons) {
+    console.log(addons.serverManager, message.guild.id)
   }
 }

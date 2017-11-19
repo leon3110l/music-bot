@@ -1,10 +1,17 @@
 import ytdl from 'ytdl-core'
 
 export default class MusicManager {
-  constructor(client, voiceChannel) {
+  constructor(client, guild) {
     if (!client) throw new Error('no client supplied')
+    if (!guild) throw new Error('no guild supplied')
     this.client = client
+    this.guild = guild
     this.queue = []
+
+    const voiceChannel = this.guild.channels
+      .filter(x => x.type === 'voice')
+      .first()
+
     this.connection = voiceChannel.connection
     this.broadcast = this.client.createVoiceBroadcast()
     if (!this.connection) {
@@ -30,6 +37,10 @@ export default class MusicManager {
       return this.dispatcher.paused
     }
     return true
+  }
+
+  get currentSong() {
+    return this.queue[this.currentlyPlaying]
   }
 
   init() {
@@ -64,9 +75,8 @@ export default class MusicManager {
   }
 
   play() {
-    const song = this.queue[this.currentlyPlaying]
-    if (!song) return
-    const stream = ytdl(song.url, {
+    if (!this.currentSong) return
+    const stream = ytdl(this.currentSong.url, {
       filter: 'audioonly',
     })
     this.broadcast.playStream(stream)

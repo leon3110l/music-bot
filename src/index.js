@@ -2,12 +2,15 @@ import Discord from 'discord.js'
 
 import { token, prefix } from './conf'
 import MessageHandler from './utils/messageHandler'
+import ServerManager from './utils/serverManager'
+import MusicManager from './utils/musicManager'
 
 // seperate command imports
 import Help from './commands/help'
 
 const bot = new Discord.Client()
-const handler = new MessageHandler(bot, prefix)
+const serverManager = new ServerManager(bot, { MusicManager })
+const handler = new MessageHandler(bot, prefix, { serverManager })
 
 bot.on('ready', () => {
   bot.generateInvite(['SEND_MESSAGES', 'MENTION_EVERYONE']).then(link => {
