@@ -1,4 +1,4 @@
-import Command from '../utils/command'
+import Command from '../structures/command'
 import spotifyApi from '../utils/spotify'
 import ytsearch from '../utils/youtube'
 import musicFilter from '../utils/musicFilter'

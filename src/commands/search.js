@@ -1,4 +1,4 @@
-import Command from '../utils/command'
+import Command from '../structures/command'
 import spotifyApi from '../utils/spotify'
 
 export default class Search extends Command {

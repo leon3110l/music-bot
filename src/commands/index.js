@@ -3,5 +3,6 @@ import Search from './search'
 import { Yt, YtMultiple } from './yt'
 import Album from './album'
 import Playlist from './playlist'
+import Add from './add'
 
-export { Invite, Search, Yt, YtMultiple, Album, Playlist }
+export { Invite, Search, Yt, YtMultiple, Album, Playlist, Add }

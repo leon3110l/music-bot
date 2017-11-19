@@ -9,7 +9,9 @@
   "dependencies": {
     "discord.js": "^11.2.1",
     "googleapis": "^22.2.0",
-    "spotify-web-api-node": "^2.5.0"
+    "node-opus": "^0.2.7",
+    "spotify-web-api-node": "^2.5.0",
+    "ytdl-core": "^0.18.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

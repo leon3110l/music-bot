@@ -1,4 +1,4 @@
-import Command from '../utils/command'
+import Command from '../structures/command'
 import * as commands from '.'
 import { prefix } from '../conf'
 

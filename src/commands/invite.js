@@ -1,4 +1,4 @@
-import Command from '../utils/command'
+import Command from '../structures/command'
 
 export default class Invite extends Command {
   static info = {

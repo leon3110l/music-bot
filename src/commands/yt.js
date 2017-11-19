@@ -1,4 +1,4 @@
-import Command from '../utils/command'
+import Command from '../structures/command'
 import ytsearch from '../utils/youtube'
 import musicFilter from '../utils/musicFilter'
 
@@ -15,7 +15,7 @@ export class Yt extends Command {
     if (!parts[1]) return
 
     const q = parts.slice(1).join(' ')
-    ytsearch({ q }).then(res => {
+    ytsewarch({ q }).then(res => {
       const { items } = res
       let msg = 'found\r\n\r\n'
       for (let x of items.filter(musicFilter(q))) {
