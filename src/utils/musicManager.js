@@ -6,17 +6,23 @@ export default class MusicManager {
     this.client = client
     this.queue = []
     this.connection = voiceChannel.connection
+    this.broadcast = this.client.createVoiceBroadcast()
     if (!this.connection) {
       voiceChannel.join().then(conn => {
         this.connection = conn
+        this.init()
       })
+    } else {
+      this.init()
     }
-    this.broadcast = client.createVoiceBroadcast()
+    this.currentlyPlaying = 0
+  }
+
+  init() {
     this.dispatcher = this.connection.playBroadcast(this.broadcast)
     this.dispatcher.on('end', () => {
       this.playNext() // play the next song in the queue
     })
-    this.currentlyPlaying = 0
   }
 
   add(song) {
@@ -35,12 +41,30 @@ export default class MusicManager {
     }
   }
 
-  playNext() {
-    const song = this.queue[this.currentlyPlaying++]
+  prev() {
+    return this.currentlyPlaying--
+  }
+
+  next() {
+    return this.currentlyPlaying++
+  }
+
+  play() {
+    const song = this.queue[this.currentlyPlaying]
     if (!song) return
     const stream = ytdl(song.url, {
       filter: 'audioonly',
     })
     this.broadcast.playStream(stream)
+  }
+
+  playNext() {
+    this.next()
+    this.play()
+  }
+
+  playPrev() {
+    this.prev()
+    this.play()
   }
 }
