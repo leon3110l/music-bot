@@ -8,7 +8,7 @@ export default class Resume extends Command {
   }
 
   run(message, parts, addons) {
-    const musicManager = addons.serverManager.get(message.guild.id).musicManager
+    const musicManager = message.guild.musicManager
     musicManager.resume()
   }
 }
