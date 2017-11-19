@@ -18,6 +18,20 @@ export default class MusicManager {
     this.currentlyPlaying = 0
   }
 
+  get playing() {
+    if (this.dispatcher) {
+      return !this.dispatcher.paused
+    }
+    return false
+  }
+
+  get paused() {
+    if (this.dispatcher) {
+      return this.dispatcher.paused
+    }
+    return true
+  }
+
   init() {
     this.dispatcher = this.connection.playBroadcast(this.broadcast)
     this.dispatcher.on('end', () => {
@@ -30,13 +44,13 @@ export default class MusicManager {
   }
 
   resume() {
-    if (this.dispatcher.paused) {
+    if (this.paused) {
       this.dispatcher.resume()
     }
   }
 
   pause() {
-    if (!this.dispatcher.paused) {
+    if (this.playing) {
       this.dispatcher.pause()
     }
   }
