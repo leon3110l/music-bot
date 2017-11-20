@@ -1,5 +1,7 @@
 import ytdl from 'ytdl-core'
 
+const streamOptions = { seek: 0, volume: 0.5 }
+
 export default class MusicManager {
   constructor(client, guild) {
     if (!client) throw new Error('no client supplied')
@@ -45,6 +47,7 @@ export default class MusicManager {
 
   init() {
     this.dispatcher = this.connection.playBroadcast(this.broadcast)
+    this.dispatcher.setBitrate(512)
     this.dispatcher.stream.on('end', () => {
       console.log('stream end call')
       this.playNext() // play the next song in the queue
@@ -84,8 +87,11 @@ export default class MusicManager {
     const stream = ytdl(this.currentSong.url, {
       filter: 'audioonly',
     })
+    stream.on('progress', (x, y, z) => {
+      console.log(x, y, z, y / z)
+    })
     console.log('added new stream')
-    this.broadcast.playStream(stream)
+    this.broadcast.playStream(stream, streamOptions)
   }
 
   skip() {
