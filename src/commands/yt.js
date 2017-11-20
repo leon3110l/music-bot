@@ -15,7 +15,7 @@ export class Yt extends Command {
     if (!parts[1]) return
 
     const q = parts.slice(1).join(' ')
-    ytsewarch({ q }).then(res => {
+    ytsearch({ q }).then(res => {
       const { items } = res
       let msg = 'found\r\n\r\n'
       for (let x of items.filter(musicFilter(q))) {
