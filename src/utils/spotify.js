@@ -18,7 +18,7 @@ spotifyApi.clientCredentialsGrant().then(
     spotifyApi.setAccessToken(data.body['access_token'])
     spotifyApi.setRefreshToken(data.body['refresh_token'])
     setInterval(() => {
-      spotifyApi.refreshAccessToken().then(
+      spotifyApi.refreshAccessToken(data.body['refresh_token']).then(
         data => {
           console.log('The access token has been refreshed!')
 

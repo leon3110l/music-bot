@@ -9,6 +9,7 @@ import Skip from './skip'
 import Prev from './prev'
 import Resume from './resume'
 import Pause from './pause'
+import Sp from './sp'
 
 export {
   Invite,
@@ -23,4 +24,5 @@ export {
   Prev,
   Resume,
   Pause,
+  Sp,
 }

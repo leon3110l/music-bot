@@ -5,6 +5,7 @@ import MessageHandler from './utils/messageHandler'
 import ServerManager from './utils/serverManager'
 import MusicManager from './utils/musicManager'
 import SpotifyParser from './utils/spotifyParser'
+import spotifyApi from './utils/spotify'
 
 // seperate command imports
 import Help from './commands/help'
@@ -15,6 +16,7 @@ const serverManager = new ServerManager(bot, { MusicManager })
 const handler = new MessageHandler(bot, prefix, {
   serverManager,
   spotifyParser,
+  spotifyApi,
 })
 
 bot.on('ready', () => {
